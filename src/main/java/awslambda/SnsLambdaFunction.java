@@ -23,14 +23,11 @@ public class SnsLambdaFunction implements RequestHandler<SNSEvent, String> {
         for (SNSEvent.SNSRecord record : event.getRecords()) {
             SNSEvent.SNS sns = record.getSNS();
             String message = sns.getMessage();
-
-            // Decode and parse the JSON payload
             JsonObject jsonPayload = JsonParser.parseString(message).getAsJsonObject();
             String email = jsonPayload.get("email").getAsString();
             String activationLink = jsonPayload.get("activationLink").getAsString();
-          //  String tokenId = jsonPayload.get("tokenId").getAsString();
-
-            // Send the email using Mailgun
+         
+            logger.info("In handle request method");
             try {
                 sendVerificationEmail(email, activationLink);
                 logger.info("Verification email sent to: " + email);
@@ -58,7 +55,7 @@ public class SnsLambdaFunction implements RequestHandler<SNSEvent, String> {
                 .text(body)
                 .build();
 
-        logger.info("i have sendt mail mow5");        
+        logger.info("sending mail to user");        
 
         try {
             mailgunMessagesApi.sendMessage(MAILGUN_DOMAIN_NAME, message);
