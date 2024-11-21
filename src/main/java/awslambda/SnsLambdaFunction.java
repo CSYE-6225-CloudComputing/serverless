@@ -45,14 +45,23 @@ public class SnsLambdaFunction implements RequestHandler<SNSEvent, String> {
                 .createApi(MailgunMessagesApi.class);
 
         String subject = "Verify Your Email Address";
-        String body = "Please click on the following link to verify your email address. "
-                + "This link will expire in 2 minutes: " + activationLink;
-        logger.info("i am here on 67");
+        String htmlBody = "<p>Dear User,</p>"
+            + "<p>Please click on the following link to verify your email address.</p>"
+            + "<a href=\"" + activationLink + "\">Verify Email</a>"
+            + "<p>Thanks</p>"; 
+
+    // Personalized plain text body
+    String textBody = "Dear User,\n\n"
+            + "Please click on the following link to verify your email address.\n"
+            + activationLink
+            + "\n\nThanks";
+            
         Message message = Message.builder()
                 .from(FROM_EMAIL)
                 .to(recipient)
                 .subject(subject)
-                .text(body)
+                .text(textBody)
+                .html(htmlBody)
                 .build();
 
         logger.info("sending mail to user");        
