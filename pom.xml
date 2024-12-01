@@ -5,61 +5,57 @@
     <artifactId>lambda-function</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>Lambda Function</name>
     <description>A serverless function for user verification</description>
-
-   <properties>
-  <maven.compiler.release>21</maven.compiler.release>
- </properties>
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-rds</artifactId>
             <version>1.12.777</version>
         </dependency>
-
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-ses</artifactId>
             <version>1.12.777</version>
         </dependency>
-
         <!-- AWS Lambda Core Dependency -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-core</artifactId>
             <version>1.2.1</version>
         </dependency>
-
         <!-- AWS Lambda Events Dependency -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-events</artifactId>
             <version>3.11.1</version>
         </dependency>
-
         <!-- JSON Processing -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
-
         <!-- Mailgun API -->
         <dependency>
             <groupId>com.mailgun</groupId>
             <artifactId>mailgun-java</artifactId>
             <version>1.1.3</version>
         </dependency>
-
         <!-- JDBC for MySQL -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
-
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>secretsmanager</artifactId>
+            <version>2.20.18</version>
+        </dependency>
         <!-- CloudEvents SDK -->
         <dependency>
             <groupId>io.cloudevents</groupId>
@@ -67,7 +63,6 @@
             <version>2.4.0</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <!-- Maven Compiler Plugin -->
@@ -80,23 +75,19 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-
             <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-shade-plugin</artifactId>
-  <version>3.3.0</version>
-  <executions>
-    <execution>
-      <phase>package</phase>
-      <goals>
-        <goal>shade</goal>
-      </goals>
-     
-    </execution>
-  </executions>
-</plugin>
-
-          
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
